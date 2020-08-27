@@ -247,6 +247,19 @@
         return true;
       }
       return false; // fixme
+    },
+
+    countPieces: function () {
+      let pieces = 0;
+      for (let row in this.attributes) {
+        for (let i = 0; i < this.attributes[row].length; i++) {
+          if (this.attributes[row][i] === 1) {
+            pieces++;
+          }
+        }
+      }
+
+      return pieces;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
