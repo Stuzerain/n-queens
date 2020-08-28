@@ -13,18 +13,6 @@
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 
-/*
-new Board({n: someNum});
-new Board ([filled matrix])
-
-[
-[1, 0, 0, 0],
-[0, 1, 0, 0],
-[0, 0, 1, 0],
-[0, 0, 0, 1]
-]
-*/
-
 window.findNRooksSolution = function (n) {
   let solution = []; //fixme
 
@@ -39,9 +27,7 @@ window.findNRooksSolution = function (n) {
     }
     solution.push(rowArr);
   }
-
-
-  // console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
 
@@ -58,39 +44,21 @@ window.countNRooksSolutions = function (n) {
     return n * factorial(n - 1);
   };
   let solution = factorial(n);
-  // console.log('Number of solutions for ' + n + ' rooks:', solution);
+  console.log('Number of solutions for ' + n + ' rooks:', solution);
   return solution;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function (n) {
-  if (n === 4) {
-    // debugger;
-  }
   let solution = new Board({ n: n });
 
-  // if (n === 0 || n === 2 || n === 3) {
-  //   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution.rows()));
-  //   return solution.rows();
-  // }
-  let sample;
-
+  let sample = solution.rows();
 
   let checkBranches = function (rowNum) {
-    let conflictsAhead;
     if (!solution.hasAnyQueensConflicts() && solution.countPieces() === n) {
-      console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution.rows()));
-      // debugger;
-      // console.log(matrix)
-      // debugger;
-      // return board.rows();
-      // console.log(solution)
       sample = _.map(solution.rows(), function (row) { return row.slice(); });
-      // console.log('sample insample');
       return;
     }
-    // if location is undefined
-    //start at 0,0
 
     //iterate over the board rows
     for (let i = 0; i < n; i++) {
@@ -99,38 +67,20 @@ window.findNQueensSolution = function (n) {
       //if no conflict
       if (!solution.hasAnyQueensConflicts()) {
         checkBranches(rowNum + 1);
+        // toggle piece off when returning from recursion to continue with recursion
         solution.togglePiece(rowNum, i);
-        //otherwise
-        // }
-        // else if (i === (n - 1) && conflictsAhead) {
-        //   debugger;
-        //   for (var j = 0; j < n; j++) {
-        //     solution.attributes[rowNum - 1][j] = 0;
-        //   }
-        //   solution.togglePiece(rowNum, i);
 
 
       } else if (solution.hasAnyQueensConflicts()) {
-        // toggle same piece off and return
+        // if conflict, toggle same piece off and return
         solution.togglePiece(rowNum, i);
       }
-      // solution.togglePiece(rowNum, i);
-      // checkBranches(rowNum);
     }
   };
 
-  //  know we need to toggle pieces
-  //  when we toggle pieces they cannot have conflicts
-  //  toggle a piece in first availble spot then next ++
-  //  if no available space "return"
-
   checkBranches(0);
-  // return solution;
-  console.log('sample at the end', n, sample);
+  console.log('Single solution for ' + n + ' queens:', JSON.stringify(sample));
   return sample;
-
-
-
 };
 
 
@@ -142,27 +92,15 @@ window.findNQueensSolution = function (n) {
 window.countNQueensSolutions = function (n) {
   let solution = new Board({ n: n });
   let count = 0;
-
-  // if (n === 0 || n === 2 || n === 3) {
-  //   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution.rows()));
-  //   return solution.rows();
-  // }
-
-
+  let sample;
 
   let checkBranches = function (rowNum) {
     if (!solution.hasAnyQueensConflicts() && solution.countPieces() === n) {
       // console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution.rows()));
-      // debugger;
-      // console.log(matrix)
-      // debugger;
-      // return board.rows();
-      // console.log(solution)
       count++;
+      // console.log('sample insample');
+      return;
     }
-    // if location is undefined
-    //start at 0,0
-
     //iterate over the board rows
     for (let i = 0; i < n; i++) {
       //toggle piece at first column/row index
@@ -170,24 +108,17 @@ window.countNQueensSolutions = function (n) {
       //if no conflict
       if (!solution.hasAnyQueensConflicts()) {
         checkBranches(rowNum + 1);
-        // solution.togglePiece(rowNum, i);
-        //otherwise
-      } else if (solution.hasAnyQueensConflicts()) {
-        // toggle same piece off and return
+        // toggle piece back off after returning from recursive call
         solution.togglePiece(rowNum, i);
 
+      } else if (solution.hasAnyQueensConflicts()) {
+        // if conflict, toggle same piece off and return
+        solution.togglePiece(rowNum, i);
       }
-      solution.togglePiece(rowNum, i);
-      // checkBranches(rowNum);
     }
   };
 
-  //  know we need to toggle pieces
-  //  when we toggle pieces they cannot have conflicts
-  //  toggle a piece in first availble spot then next ++
-  //  if no available space "return"
-
   checkBranches(0);
-  // return solution;
+  console.log('Number of solutions for ' + n + ' queens:', count);
   return count;
 };

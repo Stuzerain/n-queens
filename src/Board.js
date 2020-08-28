@@ -154,7 +154,7 @@
       let count = 0;
       for (let row in this.attributes) {
         for (let j = 0; j < this.attributes[row].length; j++) {
-          if (this.hasColConflictAt(this.attributes[row][j])) {
+          if (this.hasColConflictAt(j)) {
             count++;
           }
         }
@@ -243,7 +243,7 @@
           }
         }
       }
-      if (count > 1) {
+      if (count >= 1) {
         return true;
       }
       return false; // fixme
