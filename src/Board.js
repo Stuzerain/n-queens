@@ -111,7 +111,6 @@
         }
       }
       return false;
-      //return false; // fixme
     },
 
 
@@ -130,27 +129,11 @@
       if (count > 1) {
         return true;
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function () {
-      // // debugger;
-      // let nSize = Object.keys(this.attributes);
-      // for (let i = 0; i < nSize.length - 1; i++) {
-      //   let count = 0;
-      //   for (let row in this.attributes) {
-      //     for (let j = 0; j < this.attributes[row].length; j++) {
-      //       if (this.hasColConflictAt(i)) {
-      //         count++;
-      //       }
-      //     }
-      //   }
-      //   if (count > 1) {
-      //     return true;
-      //   }
-      // }
-      // return false; // fixme
       let count = 0;
       for (let row in this.attributes) {
         for (let j = 0; j < this.attributes[row].length; j++) {
@@ -159,7 +142,7 @@
           }
         }
       }
-      if (count > 1) {
+      if (count >= 1) {
         return true;
       } else {
         return false;
@@ -167,19 +150,8 @@
 
     },
 
-
-
-
-
-
     // Major Diagonals - go from top-left to bottom-right
     // --------------------------------------------------------------
-    //
-    // [0, 0, 0, 0],
-    // [0, 0, 0, 0],
-    // [0, 0, 0, 0],
-    // [1, 0, 0, 0]
-
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function (majorDiagonalColumnIndexAtFirstRow) {
       let count = 0;
@@ -193,7 +165,7 @@
       if (count > 1) {
         return true;
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -230,7 +202,7 @@
       if (count > 1) {
         return true;
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
@@ -243,10 +215,10 @@
           }
         }
       }
-      if (count >= 1) {
+      if (count > 1) {
         return true;
       }
-      return false; // fixme
+      return false;
     },
 
     countPieces: function () {
