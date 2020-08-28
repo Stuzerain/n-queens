@@ -64,7 +64,7 @@ window.countNRooksSolutions = function (n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function (n) {
-  if (n === 1) {
+  if (n === 4) {
     // debugger;
   }
   let solution = new Board({ n: n });
@@ -77,6 +77,7 @@ window.findNQueensSolution = function (n) {
 
 
   let checkBranches = function (rowNum) {
+    let conflictsAhead;
     if (!solution.hasAnyQueensConflicts() && solution.countPieces() === n) {
       console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution.rows()));
       // debugger;
@@ -85,7 +86,7 @@ window.findNQueensSolution = function (n) {
       // return board.rows();
       // console.log(solution)
       sample = _.map(solution.rows(), function (row) { return row.slice(); });
-      console.log('sample insample');
+      // console.log('sample insample');
       return;
     }
     // if location is undefined
@@ -98,13 +99,22 @@ window.findNQueensSolution = function (n) {
       //if no conflict
       if (!solution.hasAnyQueensConflicts()) {
         checkBranches(rowNum + 1);
-        // solution.togglePiece(rowNum, i);
+        solution.togglePiece(rowNum, i);
         //otherwise
+        // }
+        // else if (i === (n - 1) && conflictsAhead) {
+        //   debugger;
+        //   for (var j = 0; j < n; j++) {
+        //     solution.attributes[rowNum - 1][j] = 0;
+        //   }
+        //   solution.togglePiece(rowNum, i);
+
+
       } else if (solution.hasAnyQueensConflicts()) {
         // toggle same piece off and return
         solution.togglePiece(rowNum, i);
       }
-      solution.togglePiece(rowNum, i);
+      // solution.togglePiece(rowNum, i);
       // checkBranches(rowNum);
     }
   };
@@ -116,7 +126,7 @@ window.findNQueensSolution = function (n) {
 
   checkBranches(0);
   // return solution;
-  console.log('sample at the end', sample);
+  console.log('sample at the end', n, sample);
   return sample;
 
 
