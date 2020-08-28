@@ -23,6 +23,7 @@ new Board ([filled matrix])
 [0, 0, 1, 0],
 [0, 0, 0, 1]
 ]
+
 */
 
 window.findNRooksSolution = function (n) {
